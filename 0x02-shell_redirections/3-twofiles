@@ -1,2 +1,2 @@
 #!/bin/bash
-cat "/ect/passwd" "/etc/hots"
+cat "/ect/passwd" "/etc/hosts"
