@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Manages 'manage_my_process'
+
+if [ "${1}" == "start" ]
+then
+	# Start the process in the background, save its PID to a file
+	./manage_my_process &
+	touch /var/run/my_process.pid
+	echo "$!" > /var/run/my_process.pid
+	echo "manage_my_process started"
+elif [ "${1}" == "stop" ]
+then
+	# Stop the process, remove the PID file
+	echo "manage_my_process stopped"
+	kill "$(cat /var/run/my_process.pid)"
+	rm /var/run/my_process.pid
+elif [ "${1}" == "restart" ]
+then
+	# Restart the process by stopping and then starting it again
+	kill "$(cat /var/run/my_process.pid)"
+    	rm /var/run/my_process.pid
+	./manage_my_process &
+	touch /var/run/my_process.pid
+	echo "$!" > /var/run/my_process.pid
+	echo "manage_my_process restarted"
+else
+	# Display usage if an invalid command is given
+	echo "Usage: manage_my_process {start|stop|restart}"
+fi
+
