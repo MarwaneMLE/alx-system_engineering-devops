@@ -7,5 +7,5 @@
 
 for file in *
 do
-	ech "$file" | cut -d'-' -f2
+	echo "$file" | cut -d'-' -f2
 done
