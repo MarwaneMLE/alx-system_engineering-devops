@@ -1,13 +1,12 @@
 #!/usr/bin/env ruby
-#!/usr/bin/env ruby
 
 # Get the first command-line argument
 input_arg = ARGV[0]
 
-# Define the regex pattern
-patterns = /(?<=from|to|flags):(\+?\w+|[-?[0-1]:?]+)/).join(',')
+# Define the regular expression pattern
+patterns = /\[from:(.*?)\] \[to:(.*?)\] \[flags:(.*?)\]/
 
-# Use the scan method to find all occurrences of the pattern
+#Use the scan method to find all occurrences of the pattern
 matches = input_arg.scan(patterns)
 
 # Print the result
