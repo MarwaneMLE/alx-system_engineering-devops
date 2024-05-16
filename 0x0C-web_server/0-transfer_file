@@ -1,4 +1,5 @@
-nsfers a file from our client to a server
+#!/usr/bin/env bash
+# Transfers a file from our client to a server
 #
 # variables
 if [ $# -lt 4 ]
