@@ -11,14 +11,15 @@ apt-get -y install haproxy
 # edit config file
 server_config=\
 "
-frontend  besthor_frontend
+frontend  MarwaneMLE_frontend
         bind *:80
         mode http
         default_backend MarwaneMLE_backend
+
 backend MarwaneMLE_backend
         balance roundrobin
-        server 429900-web-01 34.229.161.206:80 check
-        server 429900-web-02 54.82.7.88:80 check
+        server 429900-web-01 35.175.132.176 check
+        server 429900-web-02 100.25.17.94:80 check
 "
 echo "$server_config" | sudo tee -a /etc/haproxy/haproxy.cfg
 
