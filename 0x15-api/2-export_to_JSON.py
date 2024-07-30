@@ -1,27 +1,29 @@
 #!/usr/bin/python3
-
+"""Exports data in the JSON format"""
 
 import json
 import requests
 import sys
 
 if __name__ == "__main__":
-    # Get the employee ID from the command-line argument
-    user_id = sys.argv[1]
-    
-    url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(url + "users/{}".format(user_id)).json()
-    username = user.get("username")
 
-    params = {"userId": user_id}
-    todos = requests.get(url + "todos", params).json()
-    data_to_export = {
-            user_id: [
-                {
-                     "task": todo.get("title"),
-                     "completed": todo.get("completed"),
-                     "username": username
-                }
-                for todo in todos
-            ]
-        }
+    userId = sys.argv[1]
+    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
+                        .format(userId))
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    todos = todos.json()
+
+    todoUser = {}
+    taskList = []
+
+    for task in todos:
+        if task.get('userId') == int(userId):
+            taskDict = {"task": task.get('title'),
+                        "completed": task.get('completed'),
+                        "username": user.json().get('username')}
+            taskList.append(taskDict)
+    todoUser[userId] = taskList
+
+    filename = userId + '.json'
+    with open(filename, mode='w') as f:
+        json.dump(todoUser, f)
